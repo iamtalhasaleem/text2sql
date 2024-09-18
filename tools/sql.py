@@ -9,6 +9,8 @@ def list_tables():
     rows = c.fetchall()
     return "\n".join(row[0] for row in rows if row[0] is not None)
 
+
+
 def run_sqlite_query(query):
     c = conn.cursor()
     try:
