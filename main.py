@@ -25,7 +25,7 @@ table_names = list_tables()
 prompt = ChatPromptTemplate(
     messages=[
         SystemMessage(content = (
-            "You are an AI that has access to SQLimte database.\n"
+            "You are an AI that has access to SQLite database.\n"
             f"The database has following tables: {table_names}\n"
             " Do not make any assumptions about what tables exists or what columns exists "
             "Instead use the 'describe_tables' function" 
@@ -61,5 +61,7 @@ agent_executor = AgentExecutor(
 # agent_executor("How many users have provided the shipping address ?")
 # agent_executor("Summerize the top 5 most popular products. Write the results to a report file")
 
-agent_executor("How many orders are there. Write the results to a report")
-agent_executor("Repeat exact process for users")
+# agent_executor("How many orders are there. Write the results to a report")
+# agent_executor("Repeat exact process for users")
+
+agent_executor("How many users are there. Write the results to a report")
