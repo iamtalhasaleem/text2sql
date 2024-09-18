@@ -1,5 +1,7 @@
 import sqlite3
 from langchain.tools import Tool
+from pydantic.v1 import BaseModel
+from typing import List
 
 conn = sqlite3.connect("db.sqlite")
 
@@ -28,15 +30,22 @@ def describe_tables(table_names):
     return (row[0] for row in rows if row[0] is not None)
 
 
+class RunQueryArgsSchema(BaseModel):
+    query: str
+
+class DescribeTablesArgsSchema(BaseModel):
+    table_names: List[str]
 
 run_query_tool  = Tool.from_function(
     name = "run_sqlite_query",
     description = "Run a sqlite query",
-    func = run_sqlite_query
+    func = run_sqlite_query,
+    args_schema= RunQueryArgsSchema
 )
 
 describe_tables_tool = Tool.from_function(
     name="describe_tables",
     description="Given the list of table names, return the schema of those tables",
-    func=describe_tables
+    func=describe_tables,
+    args_schema= DescribeTablesArgsSchema
 )
